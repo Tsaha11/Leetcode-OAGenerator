@@ -7,11 +7,20 @@ function App() {
   const [data,setData]=useState([]);
   const [easy,setEasy]=useState([]);
   const [medium,setMedium]=useState([]);
-  const [hard,sethard]=useState([]);
+  const [hard,setHard]=useState([]);
   useEffect((data)=>{
     setData(data1);
     data1.forEach((ev)=>{
-      console.log(ev.key)
+      const obj=Object.values(ev)[0];
+      if(obj.specialTag==="Easy"){
+        easy.push(obj);
+      }
+      else if(obj.specialTag==="Medium"){
+        medium.push(obj);
+      }
+      else{
+        hard.push(obj);
+      }
     })
   },[]);
   return (
@@ -95,9 +104,9 @@ function App() {
         </div>
       </nav>
       <div className="container">
-        <Problem/>
-        <Problem/>
-        <Problem/>
+        <Problem data={easy} key={"easy"}/>
+        <Problem data={medium} key={"medium"}/>
+        <Problem data={hard} key={"hard"}/>
       </div>
       <button className="btn">Generate Problems</button>
     </div>
