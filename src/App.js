@@ -8,9 +8,11 @@ function App() {
   const [easy,setEasy]=useState([]);
   const [medium,setMedium]=useState([]);
   const [hard,sethard]=useState([]);
-  useEffect(()=>{
+  useEffect((data)=>{
     setData(data1);
-    setEasy(data1.sort(data=>data))
+    data1.forEach((ev)=>{
+      console.log(ev.key)
+    })
   },[]);
   return (
     <div className="App">
