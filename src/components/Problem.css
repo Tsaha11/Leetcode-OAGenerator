@@ -12,7 +12,18 @@
     text-align: left;
 }
 .card a{
+    color: #1c79e4;
+    font-weight: 750;
     text-decoration: none;
+}
+#Easy{
+    background-color: rgb(142, 240, 142);
+}
+#Medium{
+    background-color: rgb(222, 183, 113);
+}
+.card a:hover{
+    cursor: pointer;
 }
 .card-body{
 }

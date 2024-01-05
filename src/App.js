@@ -5,19 +5,28 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import data1 from "./problems_all.json"
 function App() {
-const [easy, setEasy] = useState({});
-const [medium, setMedium] = useState({});
-const [hard, setHard] = useState({});
-const [rand1,setRand1]=useState(0);
-const [rand2,setRand2]=useState(0);
-const [rand3,setRand3]=useState(0);
-const getRandomNumber = (min, max) => {
-  const randomDecimal = Math.random();
-  const randomNumber = Math.floor(randomDecimal * (max - min + 1)) + min;
-  return randomNumber;
-};
-const fetchData = () => {
-  setEasy([]);setHard([]);setMedium([])
+  const [easy, setEasy] = useState([]);
+  const [medium, setMedium] = useState([]);
+  const [hard, setHard] = useState([]);
+  const [a, setA] = useState({});
+  const [b, setB] = useState({});
+  const [c, setC] = useState({});
+
+  const [rand1, setRand1] = useState(0);
+  const [rand2, setRand2] = useState(0);
+  const [rand3, setRand3] = useState(0);
+
+  const getRandomNumber = (min, max) => {
+    const randomDecimal = Math.random();
+    const randomNumber = Math.floor(randomDecimal * (max - min + 1)) + min;
+    return randomNumber;
+  };
+
+  const fetchData = () => {
+    setEasy([]);
+    setHard([]);
+    setMedium([]);
+
     data1.forEach((ev) => {
       const obj = Object.values(ev)[0];
       if (obj.specialTag === "Easy") {
@@ -28,13 +37,18 @@ const fetchData = () => {
         setHard((prev) => [...prev, obj]);
       }
     });
-    setRand1(getRandomNumber(1,easy.length));
-    setRand2(getRandomNumber(1,medium.length));
-    setRand3(getRandomNumber(1,hard.length));
-    setEasy(easy[rand1])
-    setMedium(easy[rand1])
-    setHard(easy[rand1])
   };
+
+  useEffect(() => {
+    setRand1(getRandomNumber(1, easy.length));
+    setRand2(getRandomNumber(1, medium.length));
+    setRand3(getRandomNumber(1, hard.length));
+    setA(easy[rand1]);
+    setB(medium[rand2]);
+    setC(hard[rand3]);
+  }, [easy, medium, hard, rand1, rand2, rand3]);
+
+
   return (
     <div className="App">
       {/* Header Code */}
@@ -116,9 +130,9 @@ const fetchData = () => {
         </div>
       </nav>
       <div className="container">
-        {easy && <Problem data={easy} key={"easy"}/>}
-        {medium && <Problem data={medium} key={"medium"}/>}
-        {hard && <Problem data={hard} key={"hard"}/>}
+        {easy && <Problem data={a} key={"easy"}/>}
+        {medium && <Problem data={b} key={"medium"}/>}
+        {hard && <Problem data={c} key={"hard"}/>}
       </div>
       <button className="btn" onClick={fetchData}>Generate Problems</button>
     </div>
