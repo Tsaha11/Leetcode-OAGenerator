@@ -11,6 +11,9 @@
     padding: 1rem;
     text-align: left;
 }
+.card a{
+    text-decoration: none;
+}
 .card-body{
 }
 .tags{

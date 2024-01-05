@@ -1,28 +1,40 @@
 import logo from "./logo.svg";
+import React from 'react';
 import Problem from "./components/Problem"
 import "./App.css";
 import { useEffect, useState } from "react";
 import data1 from "./problems_all.json"
 function App() {
-  const [data,setData]=useState([]);
-  const [easy,setEasy]=useState([]);
-  const [medium,setMedium]=useState([]);
-  const [hard,setHard]=useState([]);
-  useEffect((data)=>{
-    setData(data1);
-    data1.forEach((ev)=>{
-      const obj=Object.values(ev)[0];
-      if(obj.specialTag==="Easy"){
-        easy.push(obj);
+const [easy, setEasy] = useState({});
+const [medium, setMedium] = useState({});
+const [hard, setHard] = useState({});
+const [rand1,setRand1]=useState(0);
+const [rand2,setRand2]=useState(0);
+const [rand3,setRand3]=useState(0);
+const getRandomNumber = (min, max) => {
+  const randomDecimal = Math.random();
+  const randomNumber = Math.floor(randomDecimal * (max - min + 1)) + min;
+  return randomNumber;
+};
+const fetchData = () => {
+  setEasy([]);setHard([]);setMedium([])
+    data1.forEach((ev) => {
+      const obj = Object.values(ev)[0];
+      if (obj.specialTag === "Easy") {
+        setEasy((prev) => [...prev, obj]);
+      } else if (obj.specialTag === "Medium") {
+        setMedium((prev) => [...prev, obj]);
+      } else {
+        setHard((prev) => [...prev, obj]);
       }
-      else if(obj.specialTag==="Medium"){
-        medium.push(obj);
-      }
-      else{
-        hard.push(obj);
-      }
-    })
-  },[]);
+    });
+    setRand1(getRandomNumber(1,easy.length));
+    setRand2(getRandomNumber(1,medium.length));
+    setRand3(getRandomNumber(1,hard.length));
+    setEasy(easy[rand1])
+    setMedium(easy[rand1])
+    setHard(easy[rand1])
+  };
   return (
     <div className="App">
       {/* Header Code */}
@@ -104,11 +116,11 @@ function App() {
         </div>
       </nav>
       <div className="container">
-        <Problem data={easy} key={"easy"}/>
-        <Problem data={medium} key={"medium"}/>
-        <Problem data={hard} key={"hard"}/>
+        {easy && <Problem data={easy} key={"easy"}/>}
+        {medium && <Problem data={medium} key={"medium"}/>}
+        {hard && <Problem data={hard} key={"hard"}/>}
       </div>
-      <button className="btn">Generate Problems</button>
+      <button className="btn" onClick={fetchData}>Generate Problems</button>
     </div>
   );
 }
