@@ -24,8 +24,6 @@ const  App=()=> {
     return [e,m,h];
   };
   const fetchHandler=()=>{
-    console.log('sd')
-    console.log(data1)
     const [e,m,h]=fetchData();
     setEasy(e);
     setMedium(m);
