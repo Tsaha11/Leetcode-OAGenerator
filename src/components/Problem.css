@@ -13,6 +13,7 @@
     text-decoration: none;
     color: black;
     border-radius: 8px;
+    margin-bottom: 1em;
     border: 2px solid green;
 }
 .card {
