@@ -1,23 +1,33 @@
 import { useEffect, useState } from "react";
 import "./Problem.css"
 const Problem=(props)=>{
-  console.log(props.data)
-    return <>
-        <div className="card" id={props.data.specialTag}>
-          <div className="card-body">
-            <h5 className="card-title">{props.data.quesName}</h5>
-            <a href={props.data.quesLink} target="blank">
-              <h6 className="card-subtitle mb-2 text-muted easy">Link</h6>
-            </a>
+  const [prob,setProb]=useState({});
+  const [rand,setRand]=useState(0);
+  const getRandomNumber = (min, max) => {
+    const randomDecimal = Math.random();
+    const randomNumber = Math.floor(randomDecimal * (max - min + 1)) + min;
+    return randomNumber;
+  };
+  useEffect(()=>{
+    setProb(props.data[0])
+    const rand=getRandomNumber(0,props.data.length+1);
+    setRand(rand)
+  },[props.data])
+  return <>
+        {props.data.length>0 && <div className="card" id={props.data[rand].specialTag}>
+            <a href={props.data[rand].quesLink} target="blank">
+          <div className="content">
+            <h5 className="title">{props.data[rand].quesName}</h5>
             <div className="tags">
-              {props.data.tags.map((data)=>(
+              {props.data[rand].tags.map((data)=>(
                 <div className="tag">
                 <span>{data}</span>
                </div>
               ))}
             </div>
           </div>
-        </div>
+            </a>
+        </div>}
     </>
 }
 export default Problem;

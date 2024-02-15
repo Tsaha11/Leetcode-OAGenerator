@@ -4,49 +4,36 @@ import Problem from "./components/Problem"
 import "./App.css";
 import { useEffect, useState } from "react";
 import data1 from "./problems_all.json"
-function App() {
+const  App=()=> {
   const [easy, setEasy] = useState([]);
   const [medium, setMedium] = useState([]);
   const [hard, setHard] = useState([]);
-  const [a, setA] = useState({});
-  const [b, setB] = useState({});
-  const [c, setC] = useState({});
-
-  const [rand1, setRand1] = useState(0);
-  const [rand2, setRand2] = useState(0);
-  const [rand3, setRand3] = useState(0);
-
-  const getRandomNumber = (min, max) => {
-    const randomDecimal = Math.random();
-    const randomNumber = Math.floor(randomDecimal * (max - min + 1)) + min;
-    return randomNumber;
-  };
 
   const fetchData = () => {
-    setEasy([]);
-    setHard([]);
-    setMedium([]);
-
+    const e=[];const m=[];const h=[];
     data1.forEach((ev) => {
       const obj = Object.values(ev)[0];
       if (obj.specialTag === "Easy") {
-        setEasy((prev) => [...prev, obj]);
+        e.push(obj)
       } else if (obj.specialTag === "Medium") {
-        setMedium((prev) => [...prev, obj]);
+        m.push(obj)
       } else {
-        setHard((prev) => [...prev, obj]);
+        h.push(obj);
       }
     });
+    return [e,m,h];
   };
-
+  const fetchHandler=()=>{
+    console.log('sd')
+    console.log(data1)
+    const [e,m,h]=fetchData();
+    setEasy(e);
+    setMedium(m);
+    setHard(h);
+  }
   useEffect(() => {
-    setRand1(getRandomNumber(1, easy.length));
-    setRand2(getRandomNumber(1, medium.length));
-    setRand3(getRandomNumber(1, hard.length));
-    setA(easy[rand1]);
-    setB(medium[rand2]);
-    setC(hard[rand3]);
-  }, [easy, medium, hard, rand1, rand2, rand3]);
+    fetchHandler();
+  }, []);
 
 
   return (
@@ -80,41 +67,6 @@ function App() {
                 Link
               </a>
             </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Dropdown
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">
-                  Action
-                </a>
-                <a class="dropdown-item" href="#">
-                  Another action
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">
-                  Something else here
-                </a>
-              </div>
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link disabled"
-                href="#"
-                tabindex="-1"
-                aria-disabled="true"
-              >
-                Disabled
-              </a>
-            </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">
             <input
@@ -130,11 +82,11 @@ function App() {
         </div>
       </nav>
       <div className="container">
-        {easy && <Problem data={a} key={"easy"}/>}
-        {medium && <Problem data={b} key={"medium"}/>}
-        {hard && <Problem data={c} key={"hard"}/>}
+        {easy && <Problem data={easy} key={"easy"}/>}
+        {medium && <Problem data={medium} key={"medium"}/>}
+        {hard && <Problem data={hard} key={"hard"}/>}
       </div>
-      <button className="btn" onClick={fetchData}>Generate Problems</button>
+      <button className="btn" onClick={fetchHandler}>Generate Problems</button>
     </div>
   );
 }

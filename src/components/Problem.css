@@ -6,31 +6,60 @@
     flex-wrap: wrap;
 }
 .card{
-    width: 18rem;
+    width: 22em;
+    min-height: 5em;
     background-color: rgb(255, 255, 229);
-    padding: 1rem;
     text-align: left;
+    text-decoration: none;
+    color: black;
+    border-radius: 8px;
+    border: 2px solid green;
+}
+.card {
+    /* Your default styles for the card */
+    /* ... */
+    transition: background-color 0.3s; /* Adding transition for a smooth effect */
+  }
+  
+  /* Styling for 'Easy' */
+  .card#Easy:hover {
+    background-color: rgb(157, 255, 157);
+  }
+  
+  /* Styling for 'Medium' */
+  .card#Medium:hover {
+    background-color: rgb(255, 241, 165);
+  }
+  
+  /* Styling for 'Hard' */
+  .card#Hard:hover {
+    background-color: rgb(255, 172, 172);
+  }
+.card .content{
+    width: 100%;
+    padding: 0.7em;
+    min-height: 100%;
+}
+.card .content h5{
+    font-weight: 800;
 }
 .card a{
     color: #1c79e4;
     font-weight: 750;
     text-decoration: none;
 }
-#Easy{
-    background-color: rgb(142, 240, 142);
-}
-#Medium{
-    background-color: rgb(222, 183, 113);
-}
 .card a:hover{
     cursor: pointer;
 }
+
 .card-body{
 }
 .tags{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    padding-top: 0.5em;
+    padding-bottom: 0.9em;
 }
 .tag{
     background-color: rgb(255, 255, 255);
@@ -64,13 +93,14 @@
         background: rgba(0,118,255,0.9);
         box-shadow: 0 6px 20px rgb(0 118 255 / 23%);
     }
-    
 }
 h5{
     font-weight: 800;
+    color: black;
 }
 h6{
     font-weight: 500;
+    font-size: 0.85em;
 }
 .easy{
     color: green;
